@@ -52,14 +52,20 @@ app.get('/about',function(req,res)
     res.render('about')
 })
 
-app.get('/Gallery',function(req,res){
-    res.render('gallery')
+app.get('/Gallery',async function(req,res){
+    const photodata=await db.getDb().collection('gallery').find().toArray();
+    res.render('gallery',{photos:photodata})
 })
 
 
 app.get('/AddPost',function(req,res){
     res.render('addpost')
 })
+
+app.get('/AddGallery',function(req,res){
+    res.render('addgallery')
+})
+
 
 app.get('/Post',async function(req,res)
 {
@@ -85,6 +91,23 @@ app.post('/posts', upload.single('image'), async function (req, res) {
         await db.getDb().collection('post').insertOne(postdata);
         res.redirect('/Addpost');
 });
+
+
+app.post('/photo', upload.single('image'), async function (req, res) {
+    const { title } = req.body;
+    const image = req.file;
+    
+    const postdata = {
+        title: title,
+        imagePath: image.path
+    };
+
+    // Assuming you are using a MongoDB database
+    
+        await db.getDb().collection('gallery').insertOne(postdata);
+        res.redirect('/Addpost');
+});
+
 
 
 module.exports=app;

@@ -12,7 +12,20 @@
                 <p>Welcome to our captivating gallery – where every click is a journey into the heart of our visual story</p>
             </div>
         </div>
-
+        <div class="row row-bottom-padded-md">
+            <div class="col-md-12">
+                <ul id="fh5co-portfolio-list">
+                    <% for (const photo of photos) { %>
+                        <center>
+                        <li>
+                            <h2 class="phead"><%= photo.title %></h2>
+                            <img src="<%= photo.imagePath %>" alt="Post Image" width="auto" height="410px">
+                        </li>
+                        </center>
+                        <% } %>
+                        <a href="#" class="color-3">
+                        </a>
+                    </li>
         
         <div class="row row-bottom-padded-md">
             <div class="col-md-12">
@@ -106,6 +119,8 @@
                     </li>
                 </ul>	
             </div>
+        </div>
+        </div>
         </div>
         </div>
         </div>
