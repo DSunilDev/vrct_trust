@@ -112,6 +112,6 @@ app.post('/photo', upload.single('image'), async function (req, res) {
 module.exports=app;
 
 db.connectToDatabase().then(function () {
-    app.listen(480);
+    app.listen(80);
   });
   
