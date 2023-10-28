@@ -1,6 +1,5 @@
 const express=require('express')
 const path=require('path')
-const bcry=require('bcryptjs')
 const multer = require('multer');
 
 const app=express();
