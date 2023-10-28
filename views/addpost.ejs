@@ -1,0 +1,29 @@
+<%- include('navbar') %>
+		
+<head>
+	<title>Add Post | VRC TRUST</title>
+</head>
+<center>
+    <h2>Add Posts Section</h2>
+    <form method="POST" action="/posts" enctype="multipart/form-data"> <!-- enctype attribute for file uploads -->
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br><br>
+        <label for="content">Date:</label>
+        <input type="date" name="date" id="date" required>
+        <br><br>
+        <label for="content">Venue:</label>
+        <input type="text" name="venue" id="venue" required>
+        <br><br>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" rows="4" required></textarea>
+        <br><br>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="" required> <!-- accept attribute for image files only -->
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+</center>
+
+<%- include('footer') %>

@@ -3,6 +3,23 @@
 <head>
 	<title>Posts | VRC TRUST</title>
 </head>
+<center>
+	<div>
+		<h2  style="color: rgb(232, 125, 11);">Posts Section</h2>
+		<ul>
+			<% for (const post of posts) { %>
+				<li>
+					<h2 class="phead"><%= post.title %></h2>
+					<img src="<%= post.imagePath %>" alt="Post Image" width="700px" height="470px">
+					<i><p> Date: <%= post.date %></p>
+					<p> Venue: <%= post.venue %></p></i>
+					<p class="pcontent"><b><%= post.content %></b></p>
+				</li>
+				<hr width="50%" size="1000px" color="black"/>
+			<% } %>
+		</ul>
+	</div>
+</center>
 
 
 <%- include('footer') %>
