@@ -62,6 +62,32 @@ app.get('/login',function(req,res)
     res.render('login')
 })
 
+app.get('/Gallery',async function(req,res){
+    const photodata=await db.getDb().collection('gallery').find().toArray();
+    res.render('gallery',{photos:photodata})
+})
+
+
+app.get('/AddPost',function(req,res){
+    res.render('addpost')
+})
+
+app.get('/AddGallery',function(req,res){
+    res.render('addgallery')
+})
+
+
+app.get('/Post',async function(req,res)
+{
+    const postdata=await db.getDb().collection('post').find().toArray();
+    res.render('post',{posts:postdata})
+})
+
+app.get('/Success',function(req,res){
+    res.render('success')
+})
+
+
 app.post('/signup',async function(req,res)
 {
     const userdata=req.body;
@@ -88,55 +114,32 @@ res.redirect('/login')
 }
 })
 
-app.post('/login',async function(req,res)
-{
-    const userdata=req.body;
-    const mail=userdata.mail;
-    const epassword=userdata.epassword;
+app.post('/login', async function(req, res) {
+    try {
+        const userdata = req.body;
+        const mail = userdata.mail; // Assuming 'mail' is the correct property name
+        const epassword = userdata.epassword;
 
-    const existdata=await db.getDb().collection('users').findOne({email:mail})
+        const existdata = await db.getDb().collection('users').findOne({ email: mail });
 
-    if (!existdata) {
-        res.redirect('/signup');
-    } else {
-        const passkey = existdata.password; // Assuming the password field is named 'password'
-
-        const passkeycheck = await bcry.compare(epassword,passkey);
-
-        if (!passkeycheck) {
-            res.redirect('/signup');
+        if (!existdata) {
+            res.redirect('/signup'); // User not found, redirect to signup
         } else {
-            res.redirect('/');
+            const passkey = existdata.password; // Assuming the password field is named 'password'
+
+            const passkeycheck = await bcry.compare(epassword, passkey);
+
+            if (!passkeycheck) {
+                res.redirect('/signup'); // Incorrect password, redirect to root or another login page
+            } else {
+                res.redirect('/'); // Correct credentials, redirect to the admin page
+            }
         }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred');
     }
-})
-
-
-app.get('/Gallery',async function(req,res){
-    const photodata=await db.getDb().collection('gallery').find().toArray();
-    res.render('gallery',{photos:photodata})
-})
-
-
-app.get('/AddPost',function(req,res){
-    res.render('addpost')
-})
-
-app.get('/AddGallery',function(req,res){
-    res.render('addgallery')
-})
-
-
-app.get('/Post',async function(req,res)
-{
-    const postdata=await db.getDb().collection('post').find().toArray();
-    res.render('post',{posts:postdata})
-})
-
-app.get('/Success',function(req,res){
-    res.render('success')
-})
-
+});
 
 app.post('/posts', upload.single('image'), async function (req, res) {
     const { title, content,date,venue } = req.body;
