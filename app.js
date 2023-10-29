@@ -4,6 +4,23 @@ const multer = require('multer');
 const bcrypt=require('bcryptjs')
 const bodyParser = require('body-parser');
 
+const session = require('express-session');
+
+// Use express-session middleware for session handling
+app.use(session({
+    secret: 'yourSecretKey',
+    resave: true,
+    saveUninitialized: true
+}));
+
+const isLoggedIn = (req, res, next) => {
+    if (req.session.loggedIn) {
+        next(); // User is logged in, proceed
+    } else {
+        res.redirect('/login'); // User is not logged in, redirect to login
+    }
+};
+
 const app=express();
 
 const db=require('./DATABASE/database');
@@ -68,15 +85,15 @@ app.get('/Gallery',async function(req,res){
 })
 
 
-app.get('/AddPost',function(req,res){
+app.get('/AddPost',isLoggedIn,function(req,res){
     res.render('addpost')
 })
 
-app.get('/AddGallery',function(req,res){
+app.get('/AddGallery',isLoggedIn,function(req,res){
     res.render('addgallery')
 })
 
-app.get('/Admin',function(req,res){
+app.get('/Admin',isLoggedIn,function(req,res){
     res.render('admin')
 })
 
@@ -134,6 +151,7 @@ app.post('/login', async function(req, res) {
         const passwordMatch = await bcrypt.compare(epassword, hashedPassword);
 
         if (passwordMatch) {
+            req.session.loggedIn = true;
             return res.redirect('/Admin');
         } else {
             return res.redirect('/signup');
