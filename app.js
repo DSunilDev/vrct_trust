@@ -101,7 +101,7 @@ app.post('/signup',async function(req,res)
         res.redirect("/login")
     }
 else{
-    const passwordd=await bcry.hash(password,12)
+    const passwordd=await bcrypt.hash(password,12)
 
     const users={
         email:mail,
