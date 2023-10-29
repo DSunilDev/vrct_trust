@@ -65,49 +65,53 @@ app.get('/login',function(req,res)
 app.post('/signup',async function(req,res)
 {
     const userdata=req.body;
-    const email=userdata.email;
+    const mail=userdata.mail;
     const password=userdata.password;
-    const existingdata=await db.getDb().collection('users').findOne({email:email});
 
-    if(existingdata)
+    const alreadyuser=await db.getDb().collection('users').findOne({email:mail})
+
+    if(alreadyuser)
     {
-        res.redirect('/login')
-    }else
-    {
-    const hashedpassword=await bcry.hash(password,12);
+        res.redirect("/login")
+    }
+else{
+    const passwordd=await bcry.hash(password,12)
 
     const users={
-        email:email,
-        password:hashedpassword,
+        email:mail,
+        passkey:passwordd
     };
 
-    await db.getDb().collection('users').insertOne(users);
-    res.redirect('/login')
+await db.getDb().collection('users').insertOne(users);
+res.redirect('/login') 
+//USe it to Successful Page or Login Page
 }
 })
 
 app.post('/login',async function(req,res)
 {
     const userdata=req.body;
-    const email=userdata.email;
-    const password=userdata.password;
+    const mail=userdata.mail;
+    const epassword=userdata.epassword;
 
-    const existingdata=await db.getDb().collection('users').findOne({mail:email});
+    const existdata=await db.getDb().collection('users').findOne({email:mail})
 
-    if(!existingdata)
+    if(!existdata)
     {
         res.redirect('/signup')
     }
-        const passwordEqual=await bcry.compare(password,existingdata.password)
-        
-        if(!passwordEqual)
-        {
-            res.redirect('/login')
-            console.log("Wrong Password")
-        }else{
-                res.redirect('/post')
-        }
+
+    const passkeycheck=await bcry.compare(epassword,existdata.passkey)
+
+    if(!passkeycheck)
+    {
+        res.redirect('/signup')
+    }
+    else{
+    res.redirect('/')
+    }
 })
+
 
 app.get('/Gallery',async function(req,res){
     const photodata=await db.getDb().collection('gallery').find().toArray();
