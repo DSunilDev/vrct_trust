@@ -7,11 +7,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 
 // Use express-session middleware for session handling
-app.use(session({
-    secret: 'yourSecretKey',
-    resave: true,
-    saveUninitialized: true
-}));
 
 const isLoggedIn = (req, res, next) => {
     if (req.session.loggedIn) {
@@ -22,6 +17,14 @@ const isLoggedIn = (req, res, next) => {
 };
 
 const app=express();
+
+app.use(session({
+    secret: 'yourSecretKey',
+    resave: true,
+    saveUninitialized: true
+}));
+
+
 
 const db=require('./DATABASE/database');
 
