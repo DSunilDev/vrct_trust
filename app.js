@@ -62,7 +62,7 @@ app.get('/contact',function(req,res){
 
 app.get('/services',async function(req,res){
     const services=await db.getDb().collection('services').find().toArray();
-    res.render('services',{det:services})
+    res.render('services',{details:services})
 })
 
 
