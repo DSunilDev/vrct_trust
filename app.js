@@ -76,6 +76,9 @@ app.get('/AddGallery',function(req,res){
     res.render('addgallery')
 })
 
+app.get('/Admin',function(req,res){
+    res.render('admin')
+})
 
 app.get('/Post',async function(req,res)
 {
@@ -131,7 +134,7 @@ app.post('/login', async function(req, res) {
         const passwordMatch = await bcrypt.compare(epassword, hashedPassword);
 
         if (passwordMatch) {
-            return res.redirect('/');
+            return res.redirect('/Admin');
         } else {
             return res.redirect('/signup');
         }
