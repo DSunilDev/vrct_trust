@@ -96,19 +96,18 @@ app.post('/login',async function(req,res)
 
     const existdata=await db.getDb().collection('users').findOne({email:mail})
 
-    if(!existdata)
-    {
-        res.redirect('/signup')
-    }
+    if (!existdata) {
+        res.redirect('/signup');
+    } else {
+        const passkey = existdata.password; // Assuming the password field is named 'password'
 
-    const passkeycheck=await bcry.compare(epassword,existdata.passkey)
+        const passkeycheck = await bcry.compare(epassword, passkey);
 
-    if(!passkeycheck)
-    {
-        res.redirect('/signup')
-    }
-    else{
-    res.redirect('/')
+        if (!passkeycheck) {
+            res.redirect('/signup');
+        } else {
+            res.redirect('/');
+        }
     }
 })
 
