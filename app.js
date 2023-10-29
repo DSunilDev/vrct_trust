@@ -2,6 +2,7 @@ const express=require('express')
 const path=require('path')
 const multer = require('multer');
 const bcry=require('bcryptjs')
+const bodyParser = require('body-parser');
 
 const app=express();
 
@@ -30,7 +31,7 @@ const upload=multer({storage:storageconfig});
 app.use('/uploads',express.static('uploads'))
 
 
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/',function(req,res)
 {
