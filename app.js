@@ -4,8 +4,7 @@ const multer = require('multer');
 const bcrypt=require('bcryptjs')
 const bodyParser = require('body-parser');
 
-const session = require('express-session');
-
+const cookieSession = require('cookie-session');
 // Use express-session middleware for session handling
 
 const isLoggedIn = (req, res, next) => {
@@ -18,12 +17,10 @@ const isLoggedIn = (req, res, next) => {
 
 const app=express();
 
-app.use(session({
-    secret: 'yourSecretKey',
-    resave: true,
-    saveUninitialized: true
+app.use(cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2'],
 }));
-
 
 
 const db=require('./DATABASE/database');
