@@ -103,7 +103,7 @@ app.get('/Post',async function(req,res)
     res.render('post',{posts:postdata})
 })
 
-app.get('/Success',function(req,res){
+app.get('/Success',isLoggedIn,function(req,res){
     res.render('success')
 })
 
