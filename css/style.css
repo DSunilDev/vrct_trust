@@ -1213,7 +1213,8 @@ figure {
 
 @media screen and (max-width: 768px) {
   #fh5co-menu-wrap {
-    display: block;
+    display:block;
+    position:relative;
   }
 }
 
