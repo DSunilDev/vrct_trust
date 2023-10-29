@@ -51,6 +51,35 @@ app.get('/about',function(req,res)
     res.render('about')
 })
 
+app.get('/login',function(req,res)
+{
+    res.render('login')
+})
+
+app.post('/login',async function(req,res)
+{
+    const userdata=req.body;
+    const email=userdata.mail;
+    const password=userdata.password;
+
+    const existingdata=await db.getDb().collection('users').findOne({mail:email});
+
+    if(!existingdata)
+    {
+        res.redirect('/signup')
+    }
+        const passwordEqual=await bcry.compare(password,existingdata.password)
+        
+        if(!passwordEqual)
+        {
+            res.redirect('/login')
+            console.log("Wrong Password")
+        }else{
+                res.redirect('/post')
+        }
+})
+
+
 app.get('/Gallery',async function(req,res){
     const photodata=await db.getDb().collection('gallery').find().toArray();
     res.render('gallery',{photos:photodata})
@@ -72,6 +101,10 @@ app.get('/Post',async function(req,res)
     res.render('post',{posts:postdata})
 })
 
+app.get('/Success',function(req,res){
+    res.render('success')
+})
+
 
 app.post('/posts', upload.single('image'), async function (req, res) {
     const { title, content,date,venue } = req.body;
@@ -88,7 +121,7 @@ app.post('/posts', upload.single('image'), async function (req, res) {
     // Assuming you are using a MongoDB database
     
         await db.getDb().collection('post').insertOne(postdata);
-        res.redirect('/Addpost');
+        res.redirect('/Success');
 });
 
 
@@ -104,7 +137,7 @@ app.post('/photo', upload.single('image'), async function (req, res) {
     // Assuming you are using a MongoDB database
     
         await db.getDb().collection('gallery').insertOne(postdata);
-        res.redirect('/Addpost');
+        res.redirect('/Success');
 });
 
 

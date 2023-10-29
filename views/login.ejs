@@ -1,0 +1,25 @@
+<%- include('navbar') %>
+		
+<head>
+	<title>Admin Login | VRC TRUST</title>
+</head>
+
+<center>
+    <h2>Login Section</h2>
+    <div class="formbox">
+        <form action="/login" method="POST">
+            <label>Email</label>
+            <input type="email" placeholder="Mail" name="mail" required>
+            <br><br>
+            <label>Password</label>
+            <input type="password" placeholder="Password" name="password" required>
+            <br><br>
+            <button>Submit</button>
+        </form>
+        </div>
+        <div>
+            <h1>Only for Admin Use</h1>
+        </div>
+    </center>
+
+<%- include('footer') %>
