@@ -178,7 +178,10 @@ app.post('/photo', upload.single('image'), async function (req, res) {
         res.redirect('/Success');
 });
 
-
+app.use(function(req,res)
+{
+    res.render("404");
+})
 
 module.exports=app;
 
