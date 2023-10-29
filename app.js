@@ -210,6 +210,7 @@ app.post('/service', upload.single('image'), async function (req, res) {
     const postdata = {
         title: title,
         date:date,
+        description:description,
         imagePath: image.path
     };
 
