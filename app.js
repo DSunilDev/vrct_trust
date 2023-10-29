@@ -51,6 +51,36 @@ app.get('/about',function(req,res)
     res.render('about')
 })
 
+app.get('/signup',function(req,res){
+    res.render('signup')
+})
+
+app.post('/signup',async function(req,res)
+{
+    const userdata=req.body;
+    const email=userdata.mail;
+    const password=userdata.password;
+    const existingdata=await db.getDb().collection('users').findOne({mail:email});
+
+    if(existingdata)
+    {
+        res.redirect('/login')
+    }else
+    {
+    const hashedpassword=await bcry.hash(password,12);
+
+    const users={
+        mail:email,
+        password:hashedpassword,
+    };
+
+    await db.getDb().collection('users').insertOne(users);
+    res.redirect('/login')
+}
+})
+
+
+
 app.get('/login',function(req,res)
 {
     res.render('login')
