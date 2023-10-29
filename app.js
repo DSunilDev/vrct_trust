@@ -59,9 +59,9 @@ app.get('/signup',function(req,res){
 app.post('/signup',async function(req,res)
 {
     const userdata=req.body;
-    const mail=userdata.mail;
+    const email=userdata.mail;
     const password=userdata.password;
-    const existingdata=await db.getDb().collection('users').findOne({mail:mail});
+    const existingdata=await db.getDb().collection('users').findOne({mail:email});
 
     if(existingdata)
     {
@@ -71,7 +71,7 @@ app.post('/signup',async function(req,res)
     const hashedpassword=await bcry.hash(password,12);
 
     const users={
-        mail:mail,
+        mail:email,
         password:hashedpassword,
     };
 
