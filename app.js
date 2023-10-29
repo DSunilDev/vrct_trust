@@ -52,38 +52,13 @@ app.get('/about',function(req,res)
     res.render('about')
 })
 
+app.get('/signup',function(req,res){
+    res.render('signup')
+})
+
 app.get('/login',function(req,res)
 {
     res.render('login')
-})
-
-app.post('/login',async function(req,res)
-{
-    const userdata=req.body;
-    const email=userdata.mail;
-    const password=userdata.password;
-
-    const existingdata=await db.getDb().collection('users').findOne({mail:email});
-
-    if(!existingdata)
-    {
-        res.redirect('/signup')
-    }
-        const passwordEqual=await bcry.compare(password,existingdata.password)
-        
-        if(!passwordEqual)
-        {
-            res.redirect('/login')
-            console.log("Wrong Password")
-        }else{
-                res.redirect('/post')
-        }
-})
-
-
-
-app.get('/signup',function(req,res){
-    res.render('signup')
 })
 
 app.post('/signup',async function(req,res)
@@ -110,7 +85,28 @@ app.post('/signup',async function(req,res)
 }
 })
 
+app.post('/login',async function(req,res)
+{
+    const userdata=req.body;
+    const email=userdata.mail;
+    const password=userdata.password;
 
+    const existingdata=await db.getDb().collection('users').findOne({mail:email});
+
+    if(!existingdata)
+    {
+        res.redirect('/signup')
+    }
+        const passwordEqual=await bcry.compare(password,existingdata.password)
+        
+        if(!passwordEqual)
+        {
+            res.redirect('/login')
+            console.log("Wrong Password")
+        }else{
+                res.redirect('/post')
+        }
+})
 
 app.get('/Gallery',async function(req,res){
     const photodata=await db.getDb().collection('gallery').find().toArray();
