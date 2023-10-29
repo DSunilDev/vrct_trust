@@ -63,8 +63,9 @@ app.get('/contact',function(req,res){
     res.render('contact')
 })
 
-app.get('/services',function(req,res){
-    res.render('services')
+app.get('/services',async function(req,res){
+    const services=await db.getDb().collection('services').find().toArray();
+    res.render('services',{det:services})
 })
 
 
@@ -95,6 +96,11 @@ app.get('/AddPost',isLoggedIn,function(req,res){
 app.get('/AddGallery',isLoggedIn,function(req,res){
     res.render('addgallery')
 })
+
+app.get('/AddService',isLoggedIn,function(req,res){
+    res.render('addservice')
+})
+
 
 app.get('/Admin',isLoggedIn,function(req,res){
     res.render('admin')
@@ -198,6 +204,26 @@ app.post('/photo', upload.single('image'), async function (req, res) {
         await db.getDb().collection('gallery').insertOne(postdata);
         res.redirect('/Success');
 });
+
+
+app.post('/service', upload.single('image'), async function (req, res) {
+    const { title,date } = req.body;
+    const image = req.file;
+    
+    const postdata = {
+        title: title,
+        date:date,
+        imagePath: image.path
+    };
+
+    // Assuming you are using a MongoDB database
+    
+        await db.getDb().collection('services').insertOne(postdata);
+        res.redirect('/Success');
+});
+
+
+
 
 app.use(function(req,res)
 {

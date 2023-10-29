@@ -1,14 +1,17 @@
 <%- include('navbar') %>
 
 <head>
-	<title>Add Photo (Gallery) | VRC TRUST</title>
+	<title>Add Services | VRC TRUST</title>
 </head>
 
 <center>
-    <h2>Add Photo (Gallery) </h2>
-    <form method="POST" action="/photo" enctype="multipart/form-data"> <!-- enctype attribute for file uploads -->
+    <h2>Add Service </h2>
+    <form method="POST" action="/service" enctype="multipart/form-data"> <!-- enctype attribute for file uploads -->
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
+        <br><br>
+        <label for="title">Date:</label>
+        <input type="text" id="date" name="date" required>
         <br><br>
         <label for="image">Image:</label>
         <input type="file" id="image" name="image" accept="" required> <!-- accept attribute for image files only -->
