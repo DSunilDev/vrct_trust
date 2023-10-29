@@ -64,7 +64,7 @@ app.get('/login',function(req,res)
 app.post('/signup',async function(req,res)
 {
     const userdata=req.body;
-    const email=userdata.gmail;
+    const email=userdata.email;
     const password=userdata.password;
     const existingdata=await db.getDb().collection('users').findOne({email:email});
 
@@ -88,7 +88,7 @@ app.post('/signup',async function(req,res)
 app.post('/login',async function(req,res)
 {
     const userdata=req.body;
-    const email=userdata.mail;
+    const email=userdata.email;
     const password=userdata.password;
 
     const existingdata=await db.getDb().collection('users').findOne({mail:email});
