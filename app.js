@@ -101,7 +101,7 @@ app.post('/login',async function(req,res)
     } else {
         const passkey = existdata.password; // Assuming the password field is named 'password'
 
-        const passkeycheck = await bcry.compare(epassword, passkey);
+        const passkeycheck = await bcry.compare(epassword,passkey);
 
         if (!passkeycheck) {
             res.redirect('/signup');
