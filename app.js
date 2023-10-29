@@ -117,27 +117,35 @@ res.redirect('/login')
 app.post('/login', async function(req, res) {
     try {
         const userdata = req.body;
-        const mail = userdata.mail; // Assuming 'mail' is the correct property name
+        const mail = userdata.mail;
         const epassword = userdata.epassword;
+
+        if (!mail || !epassword) {
+            return res.status(400).send("Email or password is missing");
+        }
 
         const existdata = await db.getDb().collection('users').findOne({ email: mail });
 
         if (!existdata) {
-            res.redirect('/signup'); // User not found, redirect to signup
+            return res.redirect('/signup');
+        }
+
+        const passkey = existdata.password;
+
+        if (!passkey) {
+            return res.status(500).send("User data is corrupted. Password missing");
+        }
+
+        const passkeycheck = await bcry.compare(epassword, passkey);
+
+        if (!passkeycheck) {
+            return res.redirect('/signup');
         } else {
-            const passkey = existdata.password; // Assuming the password field is named 'password'
-
-            const passkeycheck = await bcry.compare(epassword, passkey);
-
-            if (!passkeycheck) {
-                res.redirect('/signup'); // Incorrect password, redirect to root or another login page
-            } else {
-                res.redirect('/'); // Correct credentials, redirect to the admin page
-            }
+            return res.redirect('/');
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('An error occurred');
+        return res.status(500).send('An error occurred: ' + error.message);
     }
 });
 
