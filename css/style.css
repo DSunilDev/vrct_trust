@@ -1467,3 +1467,20 @@ figure {
   font-style: italic;
 }
 
+.ag{
+  display:flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.w1{
+  padding: 20px;
+}
+
+.w2{
+  padding: 20px;
+}
+
+.w3{
+  padding: 20px;
+}
