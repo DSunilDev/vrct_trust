@@ -1484,3 +1484,32 @@ figure {
 .w3{
   padding: 20px;
 }
+
+.serve{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.vw{
+  font-size: 3.5rem;
+}
+
+@media (max-width:640px) {
+  .serve{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+  } 
+}
+
+.founders{
+  font-size: 2rem;
+  list-style-type: none;
+}
+
+.gc{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+}

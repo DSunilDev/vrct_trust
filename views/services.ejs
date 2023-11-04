@@ -3,29 +3,32 @@
 <head>
 	<title>Services | VRC TRUST</title>
 </head>		
-		<div id="fh5co-blog-section" class="fh5co-section-gray">
+		<div id="fh5co-blog-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>Motherly Care Towards Society</h3>
 						<p>We care the Society as our Mothers and show immense affection by serving through all dimensions</p>
 			</div>
+
 			<% for (const det of details) { %>
 			<div class="container">
 				<div class="row row-bottom-padded-md">
 					<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="blog-text">
-								<div class="prod-title">
-									<h3><%= det.title %></h3>
-									<span class="posted_by"><%= det.date %></span>
+						<center>
+							<div class="serve">
+									<h3 class="vw"><b><%= det.title %></b></h3>
 									<p> <%= det.description %></p>
-								</div>
-							</div> 
+							</div>
+							</center>
 						</div>
 					</div>
 				</div>
 			</div>
 			<% } %>
+			</div>
+			</div>
+			</div>
 		</div>
 		</div>
 		</div>

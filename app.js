@@ -66,6 +66,10 @@ app.get('/about',function(req,res)
     res.render('about')
 })
 
+app.get('/aboutVineshRamakrishnan',function(req,res){
+    res.render('aboutvinesh')
+})
+
 app.get('/signup',function(req,res){
     res.render('signup')
 })
