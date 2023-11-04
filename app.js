@@ -60,11 +60,6 @@ app.get('/contact',function(req,res){
     res.render('contact')
 })
 
-app.get('/services',async function(req,res){
-    const services=await db.getDb().collection('services').find().toArray();
-    res.render('services',{details:services})
-})
-
 
 app.get('/about',function(req,res)
 {
@@ -101,6 +96,11 @@ app.get('/AddService',isLoggedIn,function(req,res){
 
 app.get('/Admin',isLoggedIn,function(req,res){
     res.render('admin')
+})
+
+app.get('/services',async function(req,res){
+    const services=await db.getDb().collection('services').find().toArray();
+    res.render('services',{details:services})
 })
 
 app.get('/Post',async function(req,res)
@@ -210,11 +210,8 @@ app.post('/service', async function (req, res) {
         title: title,
         date:date,
         description:description,
-
     };
 
-    // Assuming you are using a MongoDB database
-    
         await db.getDb().collection('services').insertOne(postdata);
         res.redirect('/Success');
 });
