@@ -203,11 +203,14 @@ app.post('/photo', upload.single('image'), async function (req, res) {
 });
 
 
-app.post('/service',async function (req, res) {    
+app.post('/service', async function (req, res) {
+    const { title,date,description } = req.body;
+    
     const postdata = {
         title: title,
         date:date,
         description:description,
+
     };
 
     // Assuming you are using a MongoDB database
