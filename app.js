@@ -208,13 +208,13 @@ app.post('/service', async function (req, res) {
     const date=req.date;
     const description=req.description;
     
-    const postdata = {
+    const serdata = {
         title: title,
         date:date,
         description:description,
     };
 
-        await db.getDb().collection('services').insertOne(postdata);
+        await db.getDb().collection('services').insertOne(serdata);
         res.redirect('/Success');
 });
 
