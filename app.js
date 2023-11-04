@@ -204,10 +204,8 @@ app.post('/photo', upload.single('image'), async function (req, res) {
 
 
 app.post('/service', async function (req, res) {
-    const title= req.title;
-    const date=req.date;
-    const description=req.description;
-    
+
+    const { title,date,description } = req.body;
     const serdata = {
         title: title,
         date:date,
