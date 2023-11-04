@@ -204,7 +204,9 @@ app.post('/photo', upload.single('image'), async function (req, res) {
 
 
 app.post('/service', async function (req, res) {
-    const { title,date,description } = req.body;
+    const title= req.title;
+    const date=req.date;
+    const description=req.description;
     
     const postdata = {
         title: title,
