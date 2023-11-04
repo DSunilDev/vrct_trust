@@ -1513,3 +1513,7 @@ figure {
   flex-direction: row;
   justify-content:space-around;
 }
+
+.pp{
+  list-style-type: none;
+}
