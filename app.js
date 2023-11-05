@@ -3,6 +3,7 @@ const path=require('path')
 const multer = require('multer');
 const bcrypt=require('bcryptjs')
 const bodyParser = require('body-parser');
+const fs=require('fs')
 
 const cookieSession = require('cookie-session');
 // Use express-session middleware for session handling
@@ -21,6 +22,23 @@ app.use(cookieSession({
     name: 'session',
     keys: ['key1', 'key2'],
 }));
+
+function readVisitorCount() {
+    try {
+        const count = fs.readFileSync('visitor_count.txt', 'utf8');
+        return parseInt(count);
+    } catch (err) {
+        return 0;
+    }
+}
+
+function updateVisitorCount(count) {
+    try {
+        fs.writeFileSync('visitor_count.txt', count.toString(), 'utf8');
+    } catch (err) {
+        console.error('Error updating visitor count:', err);
+    }
+}
 
 
 const db=require('./DATABASE/database');
@@ -52,7 +70,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/',function(req,res)
 {
-    res.render('index')
+    let visitorCount = readVisitorCount();
+    visitorCount++; // Increment the visitor count
+    updateVisitorCount(visitorCount);
+    res.render('index', { visitorCount })
 })
 
 
