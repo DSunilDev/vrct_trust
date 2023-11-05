@@ -1521,3 +1521,7 @@ figure {
 .logo{
   float:right;
 }
+
+.ii{
+  list-style-type: none;
+}
