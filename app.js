@@ -118,9 +118,10 @@ app.get('/AddService',isLoggedIn,function(req,res){
     res.render('addservice')
 })
 
-app.get('/Admin',isLoggedIn,function (req, res){
+app.get('/Admin',isLoggedIn,async function (req, res){
+    const msgdata=await db.getDb().collection('contact').find().toArray();
     const files = fs.readdirSync('uploads/');
-    res.render('admin', { files });
+    res.render('admin', { messages:msgdata,files });
 });
 
 app.get('/download/:file', (req, res) => {
@@ -152,6 +153,27 @@ app.get('/FormSubmit',function(req,res)
 {
     res.render('successform')
 })
+
+app.get('/MsgSubmit',function(req,res)
+{
+    res.render('successcontact')
+})
+
+app.post('/process_form', async (req, res) => {
+    const {name,email,message}=req.body
+    // Create a new Contact document
+    const newContact = {
+        name:name,
+        email:email,
+        message:message,
+        timestamp: new Date()
+    };
+
+    // Insert the document into the Contact collection
+    await db.getDb().collection('contact').insertOne(newContact);
+    res.redirect('/MsgSubmit');
+});
+
 
 
 app.post('/signup',async function(req,res)

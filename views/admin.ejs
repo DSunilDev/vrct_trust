@@ -36,6 +36,28 @@
 		</ul>
 </center>
 	</div>
+	<div id="fh5co-services-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+					<h3><b>Contact Messages </b></h3>
+					<p>Messages Received from Users</p>
+				</div>
+			</div>
+			<center>
+				<ul class="pp">
+					<% messages.forEach(message => { %>
+						<li>
+							<strong>Name:</strong> <%= message.name %><br>
+							<strong>Email:</strong> <%= message.email %><br>
+							<strong>Message:</strong> <%= message.message %><br>
+							<strong>Timestamp:</strong> <%= message.timestamp %>
+						</li>
+						<br>
+					<% }); %>
+				</ul>
+</center>
+	</div>
 </div>
 <br><br><br>
 <%- include('footer') %>
