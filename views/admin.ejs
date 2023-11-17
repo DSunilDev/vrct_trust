@@ -9,10 +9,33 @@
         <h2>Have a Great Day ahead !</h2>
 		<img src="admin.png" height="360px" width="400px">
 		<a href="/" class="btn btn-primary btn-lg">Home</a>
+		<br><br>
 		<a href="/AddPost" class="btn btn-primary btn-lg">Add Post </a>
+		<br><br>
 		<a href="/AddGallery" class="btn btn-primary btn-lg">Add Gallery </a>
+		<br><br>
 		<a href="/AddService" class="btn btn-primary btn-lg">Add Service </a>
 	</center>
+	<div id="fh5co-services-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+					<h3><b>Donee Form Submissions </b></h3>
+					<p>Donee Form Submitted by Users</p>
+				</div>
+			</div>
+			<center>
+		<ul class="pp">
+			<% files.forEach(file => { %>
+				<li>
+					<%= file %>
+					<a href="/download/<%= file %>">Download</a>
+				</li>
+				<br><br>
+			<% }); %>
+		</ul>
+</center>
+	</div>
 </div>
 <br><br><br>
 <%- include('footer') %>

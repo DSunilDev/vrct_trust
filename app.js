@@ -118,10 +118,20 @@ app.get('/AddService',isLoggedIn,function(req,res){
     res.render('addservice')
 })
 
+app.get('/Admin',isLoggedIn,function (req, res){
+    const files = fs.readdirSync('uploads/');
+    res.render('admin', { files });
+});
 
-app.get('/Admin',isLoggedIn,function(req,res){
-    res.render('admin')
-})
+app.get('/download/:file', (req, res) => {
+    const file = req.params.file;
+    const filePath = path.join(__dirname, 'uploads', file);
+    res.download(filePath);
+});
+
+app.post('/submitdonee', upload.single('file'), (req, res) => {
+    res.redirect('/FormSubmit');
+});
 
 app.get('/services',async function(req,res){
     const services=await db.getDb().collection('services').find().toArray();
@@ -136,6 +146,11 @@ app.get('/Post',async function(req,res)
 
 app.get('/Success',isLoggedIn,function(req,res){
     res.render('success')
+})
+
+app.get('/FormSubmit',function(req,res)
+{
+    res.render('successform')
 })
 
 
