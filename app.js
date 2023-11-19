@@ -100,6 +100,11 @@ app.get('/login',function(req,res)
     res.render('login')
 })
 
+app.get('/cform',function(req,res)
+{
+    res.render('form')
+})
+
 app.get('/Gallery',async function(req,res){
     const photodata=await db.getDb().collection('gallery').find().toArray();
     res.render('gallery',{photos:photodata})
